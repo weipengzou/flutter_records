@@ -1,6 +1,16 @@
-# my_app
+# Records
 
-A new Flutter project.
+
+
+## Todo List:
+
+- [ ] record
+- [x] 路由
+- [x] 主题切换
+- [x] firebase支持
+- [x] 邮箱注册登录
+- [ ] 国际化
+- [ ] http 封装
 
 ## Getting Started
 
@@ -28,3 +38,9 @@ the `lib/src/localization` directory.
 To support additional languages, please visit the tutorial on
 [Internationalizing Flutter
 apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+
+
+
+  
+
+  
