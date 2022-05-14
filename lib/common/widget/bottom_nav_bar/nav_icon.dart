@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:records/common/themes/app_theme.dart';
 
 class NavIcon extends StatelessWidget {
   final IconData? _icon;
@@ -12,24 +12,24 @@ class NavIcon extends StatelessWidget {
     Key? key,
     icon,
     required this.active,
-    onTap,
+    Function()? onTap,
   })  : _onTap = onTap,
         _icon = icon,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(onTap: _onTap, child: _initIcon());
+    return GestureDetector(onTap: _onTap, child: _initIcon(context));
   }
 
-  Widget _initIcon() {
+  Widget _initIcon(context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: width,
       height: height,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: active ? const Color(0xff3DD599) : Colors.transparent,
+        color: active ? AppThemeScheme.activeBackground : Colors.transparent,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Flex(
@@ -39,8 +39,8 @@ class NavIcon extends StatelessWidget {
           Icon(
             _icon,
             color: active
-                ? Theme.of(Get.context!).primaryColor
-                : Theme.of(Get.context!).textTheme.bodyText2?.color,
+                ? AppThemeScheme.active
+                : Theme.of(context).textTheme.bodyText2?.color,
           ),
         ],
       ),

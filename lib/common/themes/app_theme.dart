@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DarkThemeColorScheme {
   static const primary = Color(0xffffffff);
   static const secondary = Color(0xff96A7AF);
   static const background = Color(0xff30444E);
-  static const MaterialColor red = MaterialColor(
-    0xFFFF464F,
-    <int, Color>{
-      0: Colors.transparent,
-      25: Color(0xff623A42),
-      75: Color(0xffFF575F),
-      100: Color(0xFFFF464F),
-    },
-  );
-  static const MaterialColor green = MaterialColor(
-    0xff25C685,
-    <int, Color>{
-      0: Colors.transparent,
-      25: Color(0xff286053),
-      75: Color(0xff3DD598),
-      100: Color(0xff25C685),
-    },
-  );
-  static const List<Color> gradientColor = [
-    Color(0xff2A3C44),
-    Color(0xff23343C),
-  ];
+
+  static const red = Color(0xFFFF464F);
+  static const active = Color(0xffffffff);
+  static const activeBackground = Color(0xff25C685);
+  // static const List<Color> gradientColor = [
+  //   Color(0xff2A3C44),
+  //   Color(0xff23343C),
+  // ];
+}
+
+class LightThemeColorScheme {
+  static const primary = Color(0xff1A3B34);
+  static const secondary = Color(0xff899A96);
+  static const background = Color(0xffEDF1FA);
+
+  static const red = Color(0xFFFF464F);
+  static const active = Color(0xffffffff);
+  static const activeBackground = Colors.lightBlueAccent;
 }
 
 class AppTheme {
@@ -50,21 +47,26 @@ class AppTheme {
       borderRadius: BorderRadius.circular(12),
     ),
   );
-
+// 亮色主题
   static final ThemeData lightThemeData = ThemeData(
     brightness: Brightness.light,
+    appBarTheme: const AppBarTheme().copyWith(
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      backgroundColor: const Color(0xffEDF1FA),
+      titleTextStyle: const TextStyle(color: LightThemeColorScheme.primary),
+    ),
     primaryColor: const Color(0xff1A3B34),
     colorScheme: const ColorScheme.light().copyWith(
-      primary: const Color(0xff1A3B34),
-      secondary: const Color(0xff899A96),
-      surface: const Color(0xffEDF1FA),
-      background: const Color(0xffEDF1FA),
+      primary: LightThemeColorScheme.primary,
+      secondary: LightThemeColorScheme.secondary,
+      surface: LightThemeColorScheme.background,
+      background: LightThemeColorScheme.background,
     ),
     backgroundColor: const Color(0xffEDF1FA),
-    scaffoldBackgroundColor: const Color(0xffffffff),
+    scaffoldBackgroundColor: Colors.white,
     textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Color(0xff1A3B34)),
-      bodyText2: TextStyle(color: Color(0xff899A96)),
+      bodyText1: TextStyle(color: LightThemeColorScheme.primary),
+      bodyText2: TextStyle(color: LightThemeColorScheme.secondary),
     ),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
@@ -83,9 +85,14 @@ class AppTheme {
       ),
     ),
   );
-
+// 暗色主题
   static final ThemeData darkThemeData = ThemeData(
     brightness: Brightness.dark,
+    appBarTheme: const AppBarTheme().copyWith(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+      backgroundColor: DarkThemeColorScheme.background,
+      titleTextStyle: const TextStyle(color: DarkThemeColorScheme.primary),
+    ),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: DarkThemeColorScheme.primary,
       secondary: DarkThemeColorScheme.secondary,
@@ -96,8 +103,8 @@ class AppTheme {
     backgroundColor: DarkThemeColorScheme.background,
     scaffoldBackgroundColor: const Color(0xff22343C),
     textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Color(0xffffffff)),
-      bodyText2: TextStyle(color: Color(0xff96A7AF)),
+      bodyText1: TextStyle(color: DarkThemeColorScheme.primary),
+      bodyText2: TextStyle(color: DarkThemeColorScheme.secondary),
     ),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
@@ -119,10 +126,15 @@ class AppTheme {
 }
 
 extension AppThemeScheme on ColorScheme {
-  get isDark => brightness == Brightness.dark;
+  static get isDark => Get.isDarkMode;
 
-  Color get red => isDark ? DarkThemeColorScheme.red : Colors.blue;
-  Color get green => isDark ? DarkThemeColorScheme.green : Colors.blue;
-  Color get navbarColor =>
+  static Color get red =>
+      isDark ? DarkThemeColorScheme.red : LightThemeColorScheme.red;
+  static Color get active =>
+      isDark ? DarkThemeColorScheme.active : LightThemeColorScheme.active;
+  static Color get activeBackground => isDark
+      ? DarkThemeColorScheme.activeBackground
+      : LightThemeColorScheme.activeBackground;
+  static Color get navbarColor =>
       isDark ? DarkThemeColorScheme.background : Colors.white;
 }

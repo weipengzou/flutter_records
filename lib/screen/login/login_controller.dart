@@ -1,75 +1,44 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:records/common/schemes/user/user_scheme.dart';
+import 'package:records/services/services.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
-  final isLogin = false.obs;
-  final account = ''.obs;
-  final password = ''.obs;
+  final RxBool isLogin = false.obs;
+  final RxString account = ''.obs;
+  final RxString password = ''.obs;
+  final Rx<UserScheme?> userInfo = Rxn<UserScheme>().value.obs;
 
   changeAccount(String val) => account.value = val;
-
   changePassword(String val) => password.value = val;
 
   registration() async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "barry.allen@example.com",
-        password: "SuperSecretPassword!",
-      );
-      print('registration');
-      print(userCredential);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print('catch');
-      print(e);
-    }
+    await APIServices.userAPI.register(
+      account: account.value,
+      password: password.value,
+    );
   }
 
   signIn() async {
-    print('sign');
-    return;
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: "barry.allen@example.com",
-        password: "SuperSecretPassword!",
-      );
-      print('---------------------');
-      var currentUser = FirebaseAuth.instance.currentUser;
+    final res = await APIServices.userAPI.login(
+      account: account.value,
+      password: password.value,
+    );
+    userInfo.value = res.user;
+    isLogin.value = true;
+    // 缓存token
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', res.accessToken.toString());
+  }
 
-      print('start');
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref("users/${currentUser?.uid}");
-      await ref.set({
-        "records": [
-          {
-            "title": 'welcome to Records',
-            "content": "default content",
-            "createTime": DateTime.now().millisecondsSinceEpoch,
-            "updateTime": DateTime.now().millisecondsSinceEpoch,
-          }
-        ]
-      });
-      print('over');
-      print('---------------------');
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.defaultDialog(
-          content: const Text('No user found for that email.'),
-        );
-      } else if (e.code == 'wrong-password') {
-        Get.defaultDialog(
-          content: const Text('Wrong password provided for that user.'),
-        );
-      }
-    }
+  signOut() async {
+    userInfo.value = null;
+    isLogin.value = false;
+    // 清除token
+    final prefs = await SharedPreferences.getInstance();
+    Get.dialog(const Text('wating...'));
+    await prefs.setString('accessToken', '');
   }
 }

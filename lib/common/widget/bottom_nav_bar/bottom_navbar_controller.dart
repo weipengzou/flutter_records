@@ -1,15 +1,30 @@
-import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/screen/index.dart';
+import 'package:records/common/widget/bottom_nav_bar/nav_data.dart';
 
 class BottomNavBarController extends GetxController {
-  var navIndex = 0.obs;
-  var navItems = [
-    const HomeScreen(),
-    const MineScreen(),
-  ];
+  final RxInt navIndex = 0.obs;
+  final List<Widget> navItems = icons.map((e) => e.page).toList();
   changeNavIndex(int index) {
+    if (navIndex.value == index) return;
     navIndex.value = index;
+    startBackgroundAnimation();
+  }
+
+  void startBackgroundAnimation() {
+    final paintAnimationController = Get.put(ButtomBackgroundPaintController());
+    final curIdx = navIndex.value;
+    final process = curIdx / icons.length;
+    paintAnimationController.xController
+        .animateTo(process + ((1 / icons.length) / 2));
+    paintAnimationController.yController.reset();
+    paintAnimationController.yController.forward();
+  }
+
+  @override
+  void onInit() {
+    startBackgroundAnimation();
+    super.onInit();
   }
 }
 

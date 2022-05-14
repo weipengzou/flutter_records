@@ -20,7 +20,7 @@ class TabbarScaffold extends StatelessWidget {
             Positioned(
               child: child!,
             ),
-            Positioned(
+            const Positioned(
               bottom: 0,
               left: 0,
               child: BottomNavBar(),

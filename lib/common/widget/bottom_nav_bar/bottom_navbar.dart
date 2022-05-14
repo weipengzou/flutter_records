@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/themes/app_theme_controller.dart';
+import 'package:records/common/themes/app_theme.dart';
 import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
+import 'package:records/common/widget/bottom_nav_bar/nav_data.dart';
 import 'package:records/common/widget/bottom_nav_bar/nav_icon.dart';
 
-final icons = [
-  {
-    "icon": Icons.home,
-    "path": "/",
-  },
-  {
-    "icon": Icons.account_box,
-    "path": "/mine",
-  },
-];
-
-class BottomNavBar extends GetView<AppThemeController> {
-  BottomNavBar({Key? key}) : super(key: key);
+class BottomNavBar extends GetView<BottomNavBarController> {
+  const BottomNavBar({Key? key}) : super(key: key);
   static double height = 60.0;
-  final navController = Get.put(BottomNavBarController());
-  final paintAnimationController = Get.put(ButtomBackgroundPaintController());
 
   @override
   Widget build(BuildContext context) {
-    _startBackgroundAnimation();
     final appSize = MediaQuery.of(context).size;
 
-    return SizedBox(
+    return Container(
       width: appSize.width,
-      height: 150,
+      height: BottomNavBar.height * 2,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -43,77 +30,52 @@ class BottomNavBar extends GetView<AppThemeController> {
             left: 0,
             bottom: 0,
             width: appSize.width,
-            height: 150,
-            child: Obx(
-              () => Flex(
-                direction: Axis.horizontal,
-                children: [
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        AnimatedPositioned(
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 1000),
-                          bottom: navController.navIndex.value == 0
-                              ? BottomNavBar.height / 2
-                              : 0,
-                          child: SizedBox(
-                            height: BottomNavBar.height,
-                            child: NavIcon(
-                              onTap: () {
-                                navController.changeNavIndex(0);
-                                _startBackgroundAnimation();
-                              },
-                              icon: Icons.home,
-                              active: navController.navIndex.value == 0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        AnimatedPositioned(
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 1000),
-                          bottom: navController.navIndex.value == 1
-                              ? BottomNavBar.height / 2
-                              : 0,
-                          child: SizedBox(
-                            height: BottomNavBar.height,
-                            child: NavIcon(
-                              onTap: () {
-                                navController.changeNavIndex(1);
-                                _startBackgroundAnimation();
-                              },
-                              icon: Icons.account_box,
-                              active: navController.navIndex.value == 1,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            height: BottomNavBar.height * 2,
+            child: _initNav(),
           ),
         ],
       ),
     );
   }
 
-  void _startBackgroundAnimation() {
-    final curIdx = navController.navIndex.value;
-    final process = curIdx / icons.length;
-    paintAnimationController.xController
-        .animateTo(process + ((1 / icons.length) / 2));
-    paintAnimationController.yController.reset();
-    paintAnimationController.yController.forward();
+  Widget _initNav() {
+    final navController = Get.put(BottomNavBarController());
+
+    final List<Widget> _icons = [];
+
+    for (var i = 0; i < icons.length; i++) {
+      final item = icons[i];
+      _icons.add(
+        Obx(
+          () => Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedPositioned(
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 1000),
+                  bottom: navController.navIndex.value == i
+                      ? BottomNavBar.height / 2
+                      : 0,
+                  child: SizedBox(
+                    height: BottomNavBar.height,
+                    child: NavIcon(
+                      onTap: () => navController.changeNavIndex(i),
+                      icon: item.icon,
+                      active: navController.navIndex.value == i,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    return Flex(
+      direction: Axis.horizontal,
+      children: _icons,
+    );
   }
 }
 
