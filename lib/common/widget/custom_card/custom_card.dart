@@ -19,13 +19,13 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: child,
       margin: _margin,
       padding: _padding,
       decoration: BoxDecoration(
         borderRadius: _borderRadius,
         color: Theme.of(context).colorScheme.background,
       ),
+      child: child,
     );
   }
 }

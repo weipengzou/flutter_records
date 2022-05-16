@@ -101,8 +101,8 @@ class LoginScreen extends GetView<LoginController> {
                       height: 50,
                     ),
                     Container(
-                      child: const Text('其他登录方式'),
                       margin: const EdgeInsets.only(bottom: 16),
+                      child: const Text('其他登录方式'),
                     ),
                     Flex(
                       direction: Axis.horizontal,

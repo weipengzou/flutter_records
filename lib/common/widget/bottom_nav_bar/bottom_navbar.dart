@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/themes/app_theme.dart';
 import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
-import 'package:records/common/widget/bottom_nav_bar/nav_data.dart';
+import 'package:records/common/widget/bottom_nav_bar/nav_data.dart' as nav_data;
 import 'package:records/common/widget/bottom_nav_bar/nav_icon.dart';
 
 class BottomNavBar extends GetView<BottomNavBarController> {
@@ -13,7 +12,7 @@ class BottomNavBar extends GetView<BottomNavBarController> {
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: appSize.width,
       height: BottomNavBar.height * 2,
       child: Stack(
@@ -41,11 +40,11 @@ class BottomNavBar extends GetView<BottomNavBarController> {
   Widget _initNav() {
     final navController = Get.put(BottomNavBarController());
 
-    final List<Widget> _icons = [];
+    final List<Widget> iconsWidgetList = [];
 
-    for (var i = 0; i < icons.length; i++) {
-      final item = icons[i];
-      _icons.add(
+    for (var i = 0; i < nav_data.icons.length; i++) {
+      final item = nav_data.icons[i];
+      iconsWidgetList.add(
         Obx(
           () => Expanded(
             child: Stack(
@@ -74,7 +73,7 @@ class BottomNavBar extends GetView<BottomNavBarController> {
     }
     return Flex(
       direction: Axis.horizontal,
-      children: _icons,
+      children: iconsWidgetList,
     );
   }
 }
@@ -85,19 +84,19 @@ class ButtomBackgroundPaint extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    final _animationController = Get.put(ButtomBackgroundPaintController());
+    final animationController = Get.put(ButtomBackgroundPaintController());
 
     final customCurve = CurveTween(curve: Curves.easeInOut);
 
     final xAnimation = Tween(
       begin: 0.0,
       end: context.width,
-    ).animate(_animationController.xController);
+    ).animate(animationController.xController);
 
     final yAnimation = TweenSequence([
       TweenSequenceItem(tween: Tween(begin: 40.0, end: -40.0), weight: 50),
       TweenSequenceItem(tween: Tween(begin: -40.0, end: 40.0), weight: 50),
-    ]).chain(customCurve).animate(_animationController.yController);
+    ]).chain(customCurve).animate(animationController.yController);
 
     return AnimatedBuilder(
       animation: xAnimation,
@@ -126,27 +125,27 @@ class ButtomBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final raduis = NavIcon.width;
-    final _startX = startX - raduis * 1.25;
-    final endX = startX + raduis * 1.25;
-    final center = _startX + ((endX - _startX) / 2);
+    final paintStartX = startX - raduis * 1.25;
+    final paintEndX = startX + raduis * 1.25;
+    final center = paintStartX + ((paintEndX - paintStartX) / 2);
     // 三阶贝塞尔曲线
     final path = Path()
       ..moveTo(0, 0)
-      ..lineTo(_startX, 0)
+      ..lineTo(paintStartX, 0)
       ..cubicTo(
-        _startX + raduis / 2,
+        paintStartX + raduis / 2,
         0,
-        _startX + raduis / 2,
+        paintStartX + raduis / 2,
         startY,
         center,
         startY,
       )
       ..cubicTo(
-        endX - raduis / 2,
+        paintEndX - raduis / 2,
         startY,
-        endX - raduis / 2,
+        paintEndX - raduis / 2,
         0,
-        endX,
+        paintEndX,
         0,
       )
       ..lineTo(size.width, 0)

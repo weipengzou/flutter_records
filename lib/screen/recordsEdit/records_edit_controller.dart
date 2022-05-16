@@ -7,7 +7,7 @@ class RecordsEditController extends GetxController {
   final Rx<QuillController> quillController = (QuillController.basic()).obs;
   // 发送
   sendRecord(String value) async {
-    final res = await APIServices.recordAPI
+    await APIServices.recordAPI
         .createRecord(title: 'default title', content: value);
   }
 
@@ -19,7 +19,7 @@ class RecordsEditController extends GetxController {
   }
 
   getRecordDraft(String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    final res = prefs.getString('recordDraft');
+    // final prefs = await SharedPreferences.getInstance();
+    // final res = prefs.getString('recordDraft');
   }
 }

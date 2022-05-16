@@ -25,11 +25,11 @@ final List<IconsType> icons = [
     path: AppRoutes.Search,
     page: const SearchScreen(),
   ),
-  IconsType(
-    icon: FontAwesomeIcons.plus,
-    path: AppRoutes.AddRecord,
-    page: const AddRecordScreen(),
-  ),
+  // IconsType(
+  //   icon: FontAwesomeIcons.plus,
+  //   path: AppRoutes.AddRecord,
+  //   page: const AddRecordScreen(),
+  // ),
   IconsType(
     icon: FontAwesomeIcons.solidMessage,
     path: AppRoutes.Message,

@@ -14,8 +14,8 @@ class HomeController extends GetxController {
 
   _init() async {
     isLoading.value = true;
-    final _recordList = await APIServices.recordAPI.getRecordList();
-    recordList.value = _recordList;
+    final homeRecordList = await APIServices.recordAPI.getRecordList();
+    recordList.value = homeRecordList;
     isLoading.value = false;
   }
 }

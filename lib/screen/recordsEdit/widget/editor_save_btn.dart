@@ -10,7 +10,7 @@ class EditSaveButton extends StatelessWidget {
   const EditSaveButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _controller = Get.put(RecordsEditController());
+    final controller = Get.put(RecordsEditController());
 
     return Container(
       height: BottomNavBar.height,
@@ -22,8 +22,8 @@ class EditSaveButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           List recordData =
-              _controller.quillController.value.document.toDelta().toJson();
-          _controller.saveRecordDraft(jsonEncode(recordData));
+              controller.quillController.value.document.toDelta().toJson();
+          controller.saveRecordDraft(jsonEncode(recordData));
           Get.defaultDialog(content: const Text('保存成功'));
           await 1.delay();
           Get.back();

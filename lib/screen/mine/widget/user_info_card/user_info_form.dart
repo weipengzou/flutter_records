@@ -28,7 +28,7 @@ class UserInfoForm extends StatelessWidget {
     final UserInfoCardController controller = Get.put(UserInfoCardController());
     var userInfo = loginController.userInfo;
 
-    final List<UserInfoFormItem> _userInfoLabel = [
+    final List<UserInfoFormItem> userInfoLabel = [
       UserInfoFormItem(
         label: 'Display Name',
         onSave: (String? value) {
@@ -56,7 +56,7 @@ class UserInfoForm extends StatelessWidget {
     ];
     List<Widget> userInfoWidget = [];
 
-    for (var item in _userInfoLabel) {
+    for (var item in userInfoLabel) {
       userInfoWidget.add(
         Obx(
           () => Flex(
@@ -91,19 +91,19 @@ class UserInfoForm extends StatelessWidget {
         ),
       );
     }
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Obx(() => Form(
           autovalidateMode: AutovalidateMode.always,
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               ...userInfoWidget,
               GestureDetector(
                 onTap: () async {
                   if (controller.canUpdateUserInfo.value) {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       await controller.changeUserInfo(userInfo.value);
-                      _formKey.currentState!.save();
+                      formKey.currentState!.save();
                     } else {
                       Get.defaultDialog(content: const Text('无效参数'));
                     }
@@ -118,7 +118,7 @@ class UserInfoForm extends StatelessWidget {
                           UserInfoFormButton(
                             text: 'Cancel',
                             onTap: () {
-                              _formKey.currentState?.reset();
+                              formKey.currentState?.reset();
                               controller.canUpdateUserInfo.toggle();
                             },
                           ),
@@ -126,9 +126,9 @@ class UserInfoForm extends StatelessWidget {
                           UserInfoFormButton(
                             text: 'Confirm',
                             onTap: () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 await controller.changeUserInfo(userInfo.value);
-                                _formKey.currentState!.save();
+                                formKey.currentState!.save();
                               } else {
                                 Get.defaultDialog(content: const Text('无效参数'));
                               }

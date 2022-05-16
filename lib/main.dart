@@ -7,7 +7,7 @@ import 'screen/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // if (GetPlatform.isWindows) initWindow();
+  if (GetPlatform.isWindows) initWindow();
   initBindings();
   // run
   runApp(const MyApp());

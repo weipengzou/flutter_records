@@ -16,7 +16,7 @@ class CustomInterceptors extends Interceptor {
       content: const Text('wating...'),
     );
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('accessToken');
+    final token = prefs.getString('accessToken') ?? '';
     options.headers.addAll({'Authorization': 'Bearer $token'});
     super.onRequest(options, handler);
   }

@@ -10,7 +10,7 @@ class EditSendButton extends StatelessWidget {
   const EditSendButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _controller = Get.put(RecordsEditController());
+    final controller = Get.put(RecordsEditController());
     return Container(
       height: BottomNavBar.height,
       decoration: BoxDecoration(
@@ -21,8 +21,8 @@ class EditSendButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           List recordJsonData =
-              _controller.quillController.value.document.toDelta().toJson();
-          _controller.sendRecord(jsonEncode(recordJsonData));
+              controller.quillController.value.document.toDelta().toJson();
+          controller.sendRecord(jsonEncode(recordJsonData));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

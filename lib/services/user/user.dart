@@ -5,7 +5,6 @@ import 'package:records/common/utils/http.dart';
 class UserAPI {
   static final dio = DioClient().instance;
   Future<UserScheme> getUserInfo() async {
-    print('getUserInfo');
     final res = await dio.get('/user/info');
     final user = UserScheme.fromMap(res.data);
     return user;
