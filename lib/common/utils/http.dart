@@ -5,7 +5,7 @@ import 'package:records/common/utils/interceptors.dart';
 class DioClient {
   static BaseOptions options = BaseOptions(
     baseUrl: 'http://124.223.216.131:9000',
-    // baseUrl: 'http://192.168.78.1:9000',
+    // baseUrl: 'http://192.168.1.24:3000',
     connectTimeout: 5000,
     receiveTimeout: 3000,
   );

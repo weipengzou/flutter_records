@@ -79,7 +79,7 @@ class LoginScreen extends GetView<LoginController> {
                           'Create an account',
                           style: TextStyle(
                             fontSize: 16,
-                            color: AppThemeScheme.red,
+                            // color: AppThemeScheme.red,
                           ),
                         ),
                       ),

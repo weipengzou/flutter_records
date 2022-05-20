@@ -1,141 +1,92 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-class DarkThemeColorScheme {
-  static const primary = Color(0xffffffff);
-  static const secondary = Color(0xff96A7AF);
-  static const background = Color(0xff30444E);
-
-  static const red = Color(0xFFFF464F);
-  static const active = Color(0xffffffff);
-  static const activeBackground = Color(0xff25C685);
-  // static const List<Color> gradientColor = [
-  //   Color(0xff2A3C44),
-  //   Color(0xff23343C),
-  // ];
-}
-
-class LightThemeColorScheme {
-  static const primary = Color(0xff1A3B34);
-  static const secondary = Color(0xff899A96);
-  static const background = Color(0xffEDF1FA);
-
-  static const red = Color(0xFFFF464F);
-  static const active = Color(0xffffffff);
-  static const activeBackground = Colors.lightBlueAccent;
-}
+import 'package:records/common/themes/dark_theme.dart';
+import 'package:records/common/themes/light_theme.dart';
 
 class AppTheme {
   // constant
-  static var isDark = Get.isDarkMode;
   static const double radius = 25;
   static const double buttonRadius = 12;
   static const double marginSize = 24;
   static const double paddingSize = 24;
+  // 获取主题 Scheme
+  static CustomThemeColor Function(BuildContext context) getScheme =
+      (BuildContext context) =>
+          Theme.of(context).extension<CustomThemeColor>()!;
 
-  // get red
-  // static const Color red = Color(0xffFF464F);
-  // static const Color orange = Color(0xffFF8A34);
-  // static const Color yellow = Color(0xffFFBC25);
-  // static const Color green = Color(0xff25C685);
-  // static const Color blue = Color(0xff005DF2);
-  // static const Color purple = Color(0xff6952DC);
-
-  final _buttonShap = MaterialStateProperty.all(
-    RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
-  );
 // 亮色主题
-
-  static final ThemeData lightThemeData = ThemeData(
-    brightness: Brightness.light,
-    appBarTheme: const AppBarTheme().copyWith(
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
-      backgroundColor: const Color(0xffEDF1FA),
-      titleTextStyle: const TextStyle(color: LightThemeColorScheme.primary),
-    ),
-    primaryColor: const Color(0xff1A3B34),
-    colorScheme: const ColorScheme.light().copyWith(
-      primary: LightThemeColorScheme.primary,
-      secondary: LightThemeColorScheme.secondary,
-      surface: LightThemeColorScheme.background,
-      background: LightThemeColorScheme.background,
-    ),
-    backgroundColor: const Color(0xffEDF1FA),
-    scaffoldBackgroundColor: Colors.white,
-    textTheme: const TextTheme(
-      bodyText1: TextStyle(color: LightThemeColorScheme.primary),
-      bodyText2: TextStyle(color: LightThemeColorScheme.secondary),
-    ),
-    buttonTheme: ButtonThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        textStyle: MaterialStateProperty.all(
-          const TextStyle(
-            color: Color(0xffffffff),
-          ),
-        ),
-        backgroundColor: MaterialStateProperty.all(const Color(0xff40DF9F)),
-        shape: AppTheme()._buttonShap,
-      ),
-    ),
-  );
-// 暗色主题
-  static final ThemeData darkThemeData = ThemeData(
-    brightness: Brightness.dark,
-    appBarTheme: const AppBarTheme().copyWith(
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      backgroundColor: DarkThemeColorScheme.background,
-      titleTextStyle: const TextStyle(color: DarkThemeColorScheme.primary),
-    ),
-    colorScheme: const ColorScheme.dark().copyWith(
-      primary: DarkThemeColorScheme.primary,
-      secondary: DarkThemeColorScheme.secondary,
-      surface: DarkThemeColorScheme.background,
-      background: DarkThemeColorScheme.background,
-    ),
-    primaryColor: DarkThemeColorScheme.primary,
-    backgroundColor: DarkThemeColorScheme.background,
-    scaffoldBackgroundColor: const Color(0xff22343C),
-    textTheme: const TextTheme(
-      bodyText1: TextStyle(color: DarkThemeColorScheme.primary),
-      bodyText2: TextStyle(color: DarkThemeColorScheme.secondary),
-    ),
-    buttonTheme: ButtonThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        textStyle: MaterialStateProperty.all(
-          const TextStyle(
-            color: Color(0xff2A3C44),
-          ),
-        ),
-        backgroundColor: MaterialStateProperty.all(const Color(0xff40DF9F)),
-        shape: AppTheme()._buttonShap,
-      ),
-    ),
-  );
+  static final ThemeData lightTheme = lightThemeData; // 暗色主题
+  static final ThemeData darkTheme = darkThemeData;
 }
 
-extension AppThemeScheme on ColorScheme {
-  static get isDark => Get.isDarkMode;
+// ThemeExtension
+class CustomThemeColor extends ThemeExtension<CustomThemeColor> {
+  const CustomThemeColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+    required this.orange,
+    required this.yellow,
+    required this.purple,
+    required this.primary,
+    required this.background,
+    required this.gradientColorForm,
+    required this.gradientColorTo,
+  });
 
-  static Color get red =>
-      isDark ? DarkThemeColorScheme.red : LightThemeColorScheme.red;
-  static Color get active =>
-      isDark ? DarkThemeColorScheme.active : LightThemeColorScheme.active;
-  static Color get activeBackground => isDark
-      ? DarkThemeColorScheme.activeBackground
-      : LightThemeColorScheme.activeBackground;
-  static Color get navbarColor =>
-      isDark ? DarkThemeColorScheme.background : Colors.white;
+  final Color? red;
+  final Color? green;
+  final Color? blue;
+  final Color? orange;
+  final Color? yellow;
+  final Color? purple;
+  final Color? primary;
+  final Color? background;
+  final Color? gradientColorForm;
+  final Color? gradientColorTo;
+
+  @override
+  ThemeExtension<CustomThemeColor> copyWith({
+    Color? red,
+    Color? green,
+    Color? blue,
+    Color? orange,
+    Color? yellow,
+    Color? purple,
+    Color? primary,
+    Color? background,
+    Color? gradientColorForm,
+    Color? gradientColorTo,
+  }) {
+    return CustomThemeColor(
+      red: red ?? this.red,
+      green: green ?? this.green,
+      blue: blue ?? this.blue,
+      orange: orange ?? this.orange,
+      yellow: yellow ?? this.yellow,
+      purple: purple ?? this.purple,
+      primary: primary ?? this.primary,
+      background: background ?? this.background,
+      gradientColorForm: gradientColorForm ?? this.gradientColorForm,
+      gradientColorTo: gradientColorTo ?? this.gradientColorTo,
+    );
+  }
+
+  @override
+  ThemeExtension<CustomThemeColor> lerp(
+      ThemeExtension<CustomThemeColor>? other, double t) {
+    if (other is! CustomThemeColor) return this;
+    return CustomThemeColor(
+      blue: Color.lerp(blue, other.blue, t),
+      green: Color.lerp(green, other.green, t),
+      orange: Color.lerp(orange, other.orange, t),
+      purple: Color.lerp(purple, other.purple, t),
+      red: Color.lerp(red, other.red, t),
+      yellow: Color.lerp(yellow, other.yellow, t),
+      primary: Color.lerp(primary, other.primary, t),
+      background: Color.lerp(background, other.background, t),
+      gradientColorForm:
+          Color.lerp(gradientColorForm, other.gradientColorForm, t),
+      gradientColorTo: Color.lerp(gradientColorTo, other.gradientColorTo, t),
+    );
+  }
 }

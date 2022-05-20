@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:records/common/themes/app_theme.dart';
+import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
 
 class NavIcon extends StatelessWidget {
   final IconData? _icon;
@@ -24,12 +25,35 @@ class NavIcon extends StatelessWidget {
 
   Widget _initIcon(context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: BottomNavBarController.animationDuration,
       width: width,
       height: height,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: active ? AppThemeScheme.activeBackground : Colors.transparent,
+        boxShadow: [
+          BoxShadow(
+              blurRadius: 8,
+              spreadRadius: -8,
+              offset: const Offset(4, 4),
+              color: active ? Colors.black : Colors.transparent),
+          BoxShadow(
+              blurRadius: 8,
+              spreadRadius: -8,
+              offset: const Offset(-4, -4),
+              color: active ? Colors.white : Colors.transparent),
+        ],
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: const [0, 0.3, 0.7, 1],
+          colors: [
+            Color.lerp(AppTheme.getScheme(context).green, Colors.white, 0.7)!,
+            Color.lerp(AppTheme.getScheme(context).green, Colors.white, 0.3)!,
+            Color.lerp(AppTheme.getScheme(context).green, Colors.black, 0.3)!,
+            Color.lerp(AppTheme.getScheme(context).green, Colors.black, 0.7)!,
+          ],
+        ),
+        color: active ? AppTheme.getScheme(context).green : Colors.transparent,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Flex(
@@ -38,9 +62,9 @@ class NavIcon extends StatelessWidget {
         children: [
           Icon(
             _icon,
-            color: active
-                ? AppThemeScheme.active
-                : Theme.of(context).textTheme.bodyText2?.color,
+            // color: active
+            //     ? AppThemeScheme.active
+            //     : Theme.of(context).textTheme.bodyText2?.color,
           ),
         ],
       ),

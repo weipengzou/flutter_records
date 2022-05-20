@@ -5,6 +5,8 @@ import 'package:records/common/widget/bottom_nav_bar/nav_data.dart';
 class BottomNavBarController extends GetxController {
   final RxInt navIndex = 0.obs;
   final List<Widget> navItems = icons.map((e) => e.page).toList();
+  static const animationDuration = Duration(milliseconds: 600); // 底部导航动画时长
+
   changeNavIndex(int index) {
     if (navIndex.value == index) return;
     navIndex.value = index;
@@ -31,11 +33,11 @@ class BottomNavBarController extends GetxController {
 class ButtomBackgroundPaintController extends GetxController
     with GetTickerProviderStateMixin {
   late AnimationController xController = AnimationController(
-    duration: const Duration(milliseconds: 1000),
+    duration: BottomNavBarController.animationDuration,
     vsync: this,
   );
   late AnimationController yController = AnimationController(
-    duration: const Duration(milliseconds: 1000),
+    duration: BottomNavBarController.animationDuration,
     vsync: this,
   );
 }

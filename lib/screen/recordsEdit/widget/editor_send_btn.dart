@@ -14,8 +14,8 @@ class EditSendButton extends StatelessWidget {
     return Container(
       height: BottomNavBar.height,
       decoration: BoxDecoration(
-        color: AppThemeScheme.activeBackground,
         borderRadius: BorderRadius.circular(AppTheme.radius),
+        color: AppTheme.getScheme(context).green,
       ),
       padding: const EdgeInsets.symmetric(horizontal: AppTheme.paddingSize),
       child: GestureDetector(
@@ -29,12 +29,12 @@ class EditSendButton extends StatelessWidget {
           children: [
             Text(
               '立即发送',
-              style: TextStyle(color: AppThemeScheme.active),
+              // style: TextStyle(color: AppThemeScheme.active),
             ),
             const SizedBox(width: 8),
             Icon(
               FontAwesomeIcons.solidPaperPlane,
-              color: AppThemeScheme.active,
+              // color: AppThemeScheme.active,
             ),
           ],
         ),

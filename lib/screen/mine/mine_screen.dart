@@ -30,6 +30,7 @@ class MineScreen extends GetView<MineController> {
                 crossAxisSpacing: 18,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 children: const [
                   SettingCard(),
                   TempCard(

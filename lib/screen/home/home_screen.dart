@@ -61,15 +61,11 @@ class HomeScreen extends StatelessWidget {
       onTap: _onTap,
       child: Stack(alignment: AlignmentDirectional.center, children: [
         Positioned(
-          child: Hero(
-            tag: 'records-editor',
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppTheme.radius),
-                  color: Theme.of(Get.context!).colorScheme.background,
-                ),
+          child: CustomCard(
+            child: const Hero(
+              tag: 'records-editor',
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
               ),
             ),
           ),
@@ -178,7 +174,7 @@ class RecordsList extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      itemCount: items?.length ?? 0,
+      itemCount: items?.length,
       itemBuilder: (context, index) {
         final item = items![index];
         return initRecordsItem(item);

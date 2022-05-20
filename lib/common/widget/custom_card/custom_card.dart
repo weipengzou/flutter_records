@@ -1,31 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:records/common/themes/app_theme.dart';
 
-class CustomCard extends StatelessWidget {
-  final EdgeInsetsGeometry? _margin;
-  final EdgeInsetsGeometry? _padding;
-  final BorderRadiusGeometry? _borderRadius;
+class CustomCard extends Card {
+  final Widget? child;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
   CustomCard({
     Key? key,
-    required this.child,
-    EdgeInsetsGeometry? margin,
+    this.child,
+    this.margin,
     EdgeInsetsGeometry? padding,
     BorderRadiusGeometry? borderRadius,
-  })  : _margin = margin ?? const EdgeInsets.all(0),
-        _padding = padding ?? const EdgeInsets.all(AppTheme.paddingSize),
-        _borderRadius = borderRadius ?? BorderRadius.circular(AppTheme.radius),
-        super(key: key);
-  final Widget child;
+  })  : padding = padding ?? const EdgeInsets.all(AppTheme.paddingSize),
+        borderRadius = borderRadius ?? BorderRadius.circular(0),
+        super(
+          key: key,
+        );
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: _margin,
-      padding: _padding,
-      decoration: BoxDecoration(
-        borderRadius: _borderRadius,
-        color: Theme.of(context).colorScheme.background,
+    return GestureDetector(
+      child: Card(
+        margin: margin,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: const [0, 1],
+              colors: [
+                Theme.of(context)
+                    .extension<CustomThemeColor>()!
+                    .gradientColorForm!,
+                Theme.of(context)
+                    .extension<CustomThemeColor>()!
+                    .gradientColorTo!,
+              ],
+            ),
+          ),
+          padding: padding,
+          child: child,
+          // child: Text(isTapDown.value.toString()),
+        ),
       ),
-      child: child,
     );
   }
 }

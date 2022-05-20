@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:records/common/themes/app_theme.dart';
 import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
 import 'package:records/common/widget/bottom_nav_bar/nav_data.dart' as nav_data;
 import 'package:records/common/widget/bottom_nav_bar/nav_icon.dart';
+import 'dart:ui' as ui;
 
 class BottomNavBar extends GetView<BottomNavBarController> {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -52,7 +54,7 @@ class BottomNavBar extends GetView<BottomNavBarController> {
               children: [
                 AnimatedPositioned(
                   curve: Curves.easeInOut,
-                  duration: const Duration(milliseconds: 1000),
+                  duration: BottomNavBarController.animationDuration,
                   bottom: navController.navIndex.value == i
                       ? BottomNavBar.height / 2
                       : 0,
@@ -152,14 +154,23 @@ class ButtomBackgroundPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height);
 
-    final colorScheme = Theme.of(Get.context!).colorScheme;
-
-    final paint = Paint()..color = colorScheme.background.withOpacity(0.9);
+    final paint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          // Colors.blue,
+          // Colors.red,
+          AppTheme.getScheme(Get.context!).gradientColorForm!,
+          AppTheme.getScheme(Get.context!).gradientColorTo!,
+        ],
+      ).createShader(Offset.zero & size)
+      ..color = AppTheme.getScheme(Get.context!).background!.withOpacity(0.8);
 
     // filter
     final filterPaint = Paint()
-      ..color = colorScheme.primary
-      ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 3.0);
+      ..color = Theme.of(Get.context!).colorScheme.primary
+      ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 2.0);
 
     canvas.drawPath(path, paint);
     canvas.drawPath(path, filterPaint);
