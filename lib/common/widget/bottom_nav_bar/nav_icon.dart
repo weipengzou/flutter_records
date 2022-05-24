@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:records/common/themes/app_theme.dart';
-import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
+part of './bottom_navbar.dart';
 
 class NavIcon extends StatelessWidget {
   final IconData? _icon;
@@ -35,25 +33,43 @@ class NavIcon extends StatelessWidget {
               blurRadius: 8,
               spreadRadius: -8,
               offset: const Offset(4, 4),
-              color: active ? Colors.black : Colors.transparent),
+              color: active
+                  ? Theme.of(context)
+                      .extension<CustomThemeSchemeExtension>()!
+                      .background!
+                      .elevated
+                      .tertiary!
+                  : Colors.transparent),
           BoxShadow(
               blurRadius: 8,
               spreadRadius: -8,
               offset: const Offset(-4, -4),
-              color: active ? Colors.white : Colors.transparent),
+              color: active
+                  ? Theme.of(context)
+                      .extension<CustomThemeSchemeExtension>()!
+                      .background!
+                      .elevated
+                      .secondary!
+                  : Colors.transparent),
         ],
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           stops: const [0, 0.3, 0.7, 1],
           colors: [
-            Color.lerp(AppTheme.getScheme(context).green, Colors.white, 0.7)!,
-            Color.lerp(AppTheme.getScheme(context).green, Colors.white, 0.3)!,
-            Color.lerp(AppTheme.getScheme(context).green, Colors.black, 0.3)!,
-            Color.lerp(AppTheme.getScheme(context).green, Colors.black, 0.7)!,
+            Color.lerp(
+                AppTheme.getColorScheme(context).green, Colors.white, 0.7)!,
+            Color.lerp(
+                AppTheme.getColorScheme(context).green, Colors.white, 0.3)!,
+            Color.lerp(
+                AppTheme.getColorScheme(context).green, Colors.black, 0.3)!,
+            Color.lerp(
+                AppTheme.getColorScheme(context).green, Colors.black, 0.7)!,
           ],
         ),
-        color: active ? AppTheme.getScheme(context).green : Colors.transparent,
+        color: active
+            ? AppTheme.getColorScheme(context).green
+            : Colors.transparent,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Flex(

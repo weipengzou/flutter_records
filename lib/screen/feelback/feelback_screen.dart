@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:records/common/themes/app_theme.dart';
+import 'package:records/common/index.dart' show AppThemeSetting;
 
 class FeelBackScreen extends StatelessWidget {
   const FeelBackScreen({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class FeelBackScreen extends StatelessWidget {
     final textFieldController = TextEditingController();
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(AppTheme.marginSize),
+        padding: const EdgeInsets.all(AppThemeSetting.marginSize),
         child: Column(
           children: [
             const Text('FeelBack'),

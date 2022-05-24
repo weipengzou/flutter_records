@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/widget/bottom_nav_bar/bottom_navbar.dart';
-import 'package:records/common/widget/custom_card/custom_card.dart';
+import 'package:records/common/index.dart' show BottomNavBar, CustomCard;
 import 'package:records/screen/mine/mine_controller.dart';
-import 'package:records/screen/mine/widget/feelback_card/feelback_card.dart';
-import 'package:records/screen/mine/widget/setting_card/setting_card.dart';
-import 'package:records/screen/mine/widget/user_info_card/user_info_card.dart';
+import 'package:records/screen/mine/widget/index.dart';
 
 class MineScreen extends GetView<MineController> {
   const MineScreen({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/themes/app_theme.dart';
 import 'package:records/screen/login/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -75,7 +74,7 @@ class LoginScreen extends GetView<LoginController> {
                           await controller.registration();
                           Get.back();
                         },
-                        child: Text(
+                        child: const Text(
                           'Create an account',
                           style: TextStyle(
                             fontSize: 16,
@@ -145,10 +144,6 @@ class LoginInput extends StatelessWidget {
         onChanged: onChanged,
         obscureText: obscureText ?? false,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(18),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
           labelText: labelText ?? '',
         ),
       ),

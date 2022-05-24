@@ -1,19 +1,16 @@
-// ignore_for_file: constant_identifier_names
-
-part of './app_page.dart';
+part of './index.dart';
 
 abstract class AppRoutes {
-  static const Mine = '/mine';
-  static const Home = '/home';
-  static const AddRecord = '/add-record';
-  static const Message = '/message';
-  static const Search = '/search';
-  static const Login = '/login';
-  static const FeelBack = '/feelback';
-  static const RecordsEdit = '/records-edit';
+  static const mine = '/mine';
+  static const home = '/home';
+  static const addRecord = '/add-record';
+  static const message = '/message';
+  static const search = '/search';
+  static const login = '/login';
+  static const feelBack = '/feelback';
+  static const recordsEdit = '/records-edit';
   // notfound
-  static const NotFound = '/notfound';
-
+  static const notFound = '/notfound';
   // setproxy
-  static const Proxy = '/proxy';
+  static const proxy = '/proxy';
 }

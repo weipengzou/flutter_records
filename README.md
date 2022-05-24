@@ -10,7 +10,10 @@ com.zwp.flutter_records
 - [x] firebase支持
 - [x] 邮箱注册登录
 - [ ] 国际化
-- [ ] http 封装
+- [x] http 封装
+
+## IOS 15 UI kit
+link https://www.figma.com/file/ZehmufWHK48pgrkOoq1CQh/
 
 ## Getting Started
 
@@ -41,6 +44,5 @@ apps](https://flutter.dev/docs/development/accessibility-and-localization/intern
 
 
 
-  
+## 结构
 
-  

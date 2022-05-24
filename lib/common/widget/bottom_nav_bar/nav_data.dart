@@ -1,6 +1,8 @@
+// part of './bottom_navbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:records/common/routes/app_page.dart';
+import 'package:records/common/index.dart' show AppRoutes;
 import 'package:records/screen/index.dart';
 
 class IconsType {
@@ -17,12 +19,12 @@ class IconsType {
 final List<IconsType> icons = [
   IconsType(
     icon: FontAwesomeIcons.house,
-    path: AppRoutes.Home,
-    page: const HomeScreen(),
+    path: AppRoutes.home,
+    page: HomeScreen(),
   ),
   IconsType(
     icon: FontAwesomeIcons.magnifyingGlass,
-    path: AppRoutes.Search,
+    path: AppRoutes.search,
     page: const SearchScreen(),
   ),
   // IconsType(
@@ -32,12 +34,12 @@ final List<IconsType> icons = [
   // ),
   IconsType(
     icon: FontAwesomeIcons.solidMessage,
-    path: AppRoutes.Message,
+    path: AppRoutes.message,
     page: const MessageScreen(),
   ),
   IconsType(
     icon: FontAwesomeIcons.solidUser,
-    path: AppRoutes.Mine,
+    path: AppRoutes.mine,
     page: const MineScreen(),
   ),
 ];

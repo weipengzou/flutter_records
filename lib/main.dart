@@ -7,10 +7,11 @@ import 'screen/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (GetPlatform.isWindows) initWindow();
+  // if (GetPlatform.isWindows) initWindow();
   initBindings();
   // run
   runApp(const MyApp());
+  runtimeBindings();
 }
 
 void initWindow() async {
@@ -22,6 +23,9 @@ void initWindow() async {
 }
 
 void initBindings() {
-  Get.put<AppThemeController>(AppThemeController());
   Get.put<BottomNavBarController>(BottomNavBarController());
+}
+
+void runtimeBindings() {
+  Get.put<AppThemeController>(AppThemeController());
 }

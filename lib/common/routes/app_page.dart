@@ -1,20 +1,10 @@
-import 'package:get/get.dart';
-import 'package:records/screen/addRecord/add_record_bindings.dart';
-import 'package:records/screen/feelback/feelback_bindings.dart';
-import 'package:records/screen/home/home_bindings.dart';
-import 'package:records/screen/index.dart';
-import 'package:records/screen/login/login_bindings.dart';
-import 'package:records/screen/message/message_bindings.dart';
-import 'package:records/screen/mine/mine_bindings.dart';
-import 'package:records/screen/recordsEdit/records_edit_bindings.dart';
-import 'package:records/screen/search/search_bindings.dart';
-part './app_routes.dart';
+part of './index.dart';
 
 class AppPages {
   static final routes = [
     GetPage(
-      name: AppRoutes.Home,
-      page: () => const HomeScreen(),
+      name: AppRoutes.home,
+      page: () => HomeScreen(),
       transition: Transition.fadeIn,
       bindings: [
         HomeBinding(),
@@ -22,7 +12,7 @@ class AppPages {
       ],
     ),
     GetPage(
-      name: AppRoutes.Mine,
+      name: AppRoutes.mine,
       page: () => const MineScreen(),
       transition: Transition.fadeIn,
       bindings: [
@@ -31,37 +21,37 @@ class AppPages {
       ],
     ),
     GetPage(
-      name: AppRoutes.Search,
+      name: AppRoutes.search,
       page: () => const SearchScreen(),
       binding: SearchBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: AppRoutes.Login,
+      name: AppRoutes.login,
       page: () => const LoginScreen(),
       binding: LoginBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: AppRoutes.Message,
+      name: AppRoutes.message,
       page: () => const MessageScreen(),
       binding: MessageBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: AppRoutes.AddRecord,
+      name: AppRoutes.addRecord,
       page: () => const AddRecordScreen(),
       binding: AddRecordBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: AppRoutes.RecordsEdit,
+      name: AppRoutes.recordsEdit,
       page: () => const RecordsEditScreen(),
       binding: RecordsEditBinding(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: AppRoutes.FeelBack,
+      name: AppRoutes.feelBack,
       page: () => const FeelBackScreen(),
       binding: FeelBackBinding(),
       transition: Transition.fadeIn,

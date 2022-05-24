@@ -14,7 +14,7 @@ class TabbarScaffold extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       body: SizedBox(
-        width: double.infinity,
+        width: context.size?.width,
         child: Stack(
           children: [
             Positioned(

@@ -12,15 +12,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # i18n
   flutter_localizations:
     sdk: flutter
+  # http
   dio: ^4.0.4
   json_annotation: ^4.4.0
+  # store
   get: ^4.6.1
+  # wechat
   fluwx_no_pay: ^3.8.2
-  flutter_quill: ^4.1.1
+  # rich editor
+  flutter_quill: ^5.0.2
+  # window tabbar
   window_manager: ^0.2.1
+  # localStroage
   shared_preferences: ^2.0.13
+  # icons
   font_awesome_flutter: ^10.1.0
 
 dev_dependencies:

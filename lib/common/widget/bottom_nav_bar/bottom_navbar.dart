@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/themes/app_theme.dart';
+import 'package:records/common/index.dart'
+    show AppTheme, CustomThemeSchemeExtension;
 import 'package:records/common/widget/bottom_nav_bar/bottom_navbar_controller.dart';
 import 'package:records/common/widget/bottom_nav_bar/nav_data.dart' as nav_data;
-import 'package:records/common/widget/bottom_nav_bar/nav_icon.dart';
-import 'dart:ui' as ui;
+
+part './nav_icon.dart';
 
 class BottomNavBar extends GetView<BottomNavBarController> {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -159,17 +160,24 @@ class ButtomBackgroundPainter extends CustomPainter {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          // Colors.blue,
-          // Colors.red,
-          AppTheme.getScheme(Get.context!).gradientColorForm!,
-          AppTheme.getScheme(Get.context!).gradientColorTo!,
+          Theme.of(Get.context!)
+              .extension<CustomThemeSchemeExtension>()!
+              .background!
+              .elevated
+              .tertiary!,
+          Theme.of(Get.context!)
+              .extension<CustomThemeSchemeExtension>()!
+              .background!
+              .elevated
+              .primary!,
         ],
       ).createShader(Offset.zero & size)
-      ..color = AppTheme.getScheme(Get.context!).background!.withOpacity(0.8);
+      ..color = AppTheme.getColorScheme(Get.context!).gray02!.withOpacity(0.8);
 
     // filter
     final filterPaint = Paint()
-      ..color = Theme.of(Get.context!).colorScheme.primary
+      ..color =
+          AppTheme.getKitScheme(Get.context!).fill!.primary!.withOpacity(1)
       ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 2.0);
 
     canvas.drawPath(path, paint);

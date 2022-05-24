@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:records/common/themes/app_theme.dart';
+import 'package:records/common/themes/index.dart';
 
 class CustomCard extends Card {
-  final Widget? child;
+  @override
   final EdgeInsetsGeometry? margin;
+  @override
+  final Widget? child;
   final EdgeInsetsGeometry? padding;
   final BorderRadiusGeometry? borderRadius;
+  final Function()? onTap;
   CustomCard({
     Key? key,
     this.child,
     this.margin,
+    this.onTap,
     EdgeInsetsGeometry? padding,
     BorderRadiusGeometry? borderRadius,
-  })  : padding = padding ?? const EdgeInsets.all(AppTheme.paddingSize),
+  })  : padding = padding ?? const EdgeInsets.all(AppThemeSetting.paddingSize),
         borderRadius = borderRadius ?? BorderRadius.circular(0),
-        super(
-          key: key,
-        );
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Card(
         margin: margin,
         child: Container(
@@ -29,20 +32,23 @@ class CustomCard extends Card {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              stops: const [0, 1],
+              stops: const [0.3, 0.7],
               colors: [
                 Theme.of(context)
-                    .extension<CustomThemeColor>()!
-                    .gradientColorForm!,
+                    .extension<CustomThemeSchemeExtension>()!
+                    .background!
+                    .elevated
+                    .tertiary!,
                 Theme.of(context)
-                    .extension<CustomThemeColor>()!
-                    .gradientColorTo!,
+                    .extension<CustomThemeSchemeExtension>()!
+                    .background!
+                    .elevated
+                    .secondary!,
               ],
             ),
           ),
           padding: padding,
           child: child,
-          // child: Text(isTapDown.value.toString()),
         ),
       ),
     );

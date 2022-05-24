@@ -1,6 +1,5 @@
-import 'package:records/common/schemes/user/login_scheme.dart';
-import 'package:records/common/schemes/user/user_scheme.dart';
-import 'package:records/common/utils/http.dart';
+import 'package:records/common/index.dart'
+    show DioClient, UserScheme, LoginScheme;
 
 class UserAPI {
   static final dio = DioClient().instance;

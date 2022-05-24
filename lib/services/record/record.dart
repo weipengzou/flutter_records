@@ -1,5 +1,4 @@
-import 'package:records/common/schemes/record/record_scheme.dart';
-import 'package:records/common/utils/http.dart';
+import 'package:records/common/index.dart' show DioClient, RecordScheme;
 
 class RecordAPI {
   static final dio = DioClient().instance;
@@ -12,7 +11,7 @@ class RecordAPI {
     return recordList;
   }
 
-  Future<RecordScheme> createRecord({
+  createRecord({
     required String title,
     required String content,
   }) async {
