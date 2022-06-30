@@ -46,30 +46,30 @@ class MyApp extends StatelessWidget {
       },
       child: Obx(
         () => Scaffold(
-          // appBar: CustomAppBar(),
           resizeToAvoidBottomInset: false,
-
-          body: SizedBox(
-            width: double.infinity,
-            child: Stack(
-              children: [
-                Positioned(
-                  child: navController.navItems[navController.navIndex.value],
-                ),
-                const Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: BottomNavBar(),
-                ),
-                // const Positioned(
-                //   child: PerformanceOverlay(
-                //     optionsMask: 999999,
-                //     rasterizerThreshold: 1,
-                //     checkerboardRasterCacheImages: true,
-                //     checkerboardOffscreenLayers: true,
-                //   ),
-                // ),
-              ],
+          body: SafeArea(
+            child: SizedBox(
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: navController.navItems[navController.navIndex.value],
+                  ),
+                  const Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: BottomNavBar(),
+                  ),
+                  // const Positioned(
+                  //   child: PerformanceOverlay(
+                  //     optionsMask: 999999,
+                  //     rasterizerThreshold: 1,
+                  //     checkerboardRasterCacheImages: true,
+                  //     checkerboardOffscreenLayers: true,
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),

@@ -201,21 +201,29 @@ class HomeScreen extends StatelessWidget {
 
   Widget initPageView() {
     final items = controller.recordList.value;
-    if (items?.isEmpty ?? true) {
-      return Center(
-        child: Column(children: const [
-          Icon(FontAwesomeIcons.circleExclamation),
-          Text('暂无数据'),
-        ]),
-      );
-    }
+    // if (items?.isEmpty ?? true) {
+    //   return Center(
+    //     child: Column(children: const [
+    //       Icon(FontAwesomeIcons.circleExclamation),
+    //       Text('暂无数据'),
+    //     ]),
+    //   );
+    // }
+    // return Text('data');
     return PageView.builder(
+      itemCount: 100,
       scrollDirection: Axis.vertical,
-      itemCount: 20,
+      physics: const PageScrollPhysics(parent: BouncingScrollPhysics()),
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Text('container$index'),
-        );
+        return Text('data');
+        // return Container(
+        //   color: Colors.red,
+        //   // child: Text('container$index'),
+        //   child: Text(
+        //     'container',
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        // );
       },
     );
   }
@@ -224,13 +232,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const Positioned(
+        Positioned(
           top: 0,
           height: 64.0,
-          child: Text('透明 top bar'),
+          child: Container(
+              width: context.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [0, 1],
+                  colors: [Colors.black.withOpacity(0.7), Colors.transparent],
+                ),
+              ),
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Text('item1', style: TextStyle(color: Colors.white)),
+                    Text('item2', style: TextStyle(color: Colors.white)),
+                    Text('item3', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              )),
         ),
-        Positioned(
-          top: 0.0,
+        Expanded(
           child: initPageView(),
         ),
       ],
